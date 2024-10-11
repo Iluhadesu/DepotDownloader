@@ -850,7 +850,7 @@ namespace DepotDownloader
 
                             if (e.StatusCode == HttpStatusCode.NotFound)
                             {
-                                Console.WriteLine("[Error]|[404]|Encountered 404 for depot manifest {0} {1}. Aborting.", ddepot.DepotId, depot.ManifestId);
+                                Console.WriteLine("[Error]|[404]|Encountered 404 for depot manifest {0} {1}. Aborting.", depot.DepotId, depot.ManifestId);
                                 break;
                             }
 
@@ -1214,10 +1214,10 @@ namespace DepotDownloader
             var depotDownloadCounter = depotFilesData.depotCounter;
 
             var chunkID = Convert.ToHexString(chunk.ChunkID).ToLowerInvariant();
-            
+
             var timings = depotDownloadCounter.Timings;
             var downloadedSizes = depotDownloadCounter.SizesDownloaded;
-            
+
             var data = new DepotManifest.ChunkData
             {
                 ChunkID = chunk.ChunkID,
@@ -1351,7 +1351,7 @@ namespace DepotDownloader
                 depotDownloadCounter.sizeDownloaded = sizeDownloaded;
                 depotDownloadCounter.depotBytesCompressed += chunk.CompressedLength;
                 depotDownloadCounter.depotBytesUncompressed += chunk.UncompressedLength;
-                
+
                 timings.Enqueue(DateTimeOffset.Now.ToUnixTimeSeconds());
                 downloadedSizes.Enqueue(sizeDownloaded);
 
