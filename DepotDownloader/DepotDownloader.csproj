@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
@@ -25,6 +25,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <TrimmerRootAssembly Include="protobuf-net" />
     <PackageReference Include="protobuf-net" Version="3.2.30" />
     <PackageReference Include="SteamKit2" Version="3.0.0-Beta.3" />
   </ItemGroup>
