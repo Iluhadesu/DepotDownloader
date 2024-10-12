@@ -23,11 +23,6 @@ namespace DepotDownloader
                 PrintVersion();
                 PrintUsage();
 
-                if (OperatingSystem.IsWindowsVersionAtLeast(5, 0))
-                {
-                    PlatformUtilities.VerifyConsoleLaunch();
-                }
-
                 return 0;
             }
 
