@@ -206,6 +206,7 @@ namespace DepotDownloader
                 ContentDownloader.Config.BetaPassword = GetParameter<string>(args, "-betapassword");
 
                 ContentDownloader.Config.DownloadAllPlatforms = HasParameter(args, "-all-platforms");
+
                 var os = GetParameter<string>(args, "-os");
 
                 if (ContentDownloader.Config.DownloadAllPlatforms && !string.IsNullOrEmpty(os))
@@ -214,7 +215,15 @@ namespace DepotDownloader
                     return 1;
                 }
 
+                ContentDownloader.Config.DownloadAllArchs = HasParameter(args, "-all-archs");
+
                 var arch = GetParameter<string>(args, "-osarch");
+
+                if (ContentDownloader.Config.DownloadAllArchs && !string.IsNullOrEmpty(arch))
+                {
+                    Console.WriteLine("Error: Cannot specify -osarch when -all-archs is specified.");
+                    return 1;
+                }
 
                 ContentDownloader.Config.DownloadAllLanguages = HasParameter(args, "-all-languages");
                 var language = GetParameter<string>(args, "-language");
@@ -396,6 +405,7 @@ namespace DepotDownloader
             Console.WriteLine($"  -beta <branchname>       - download from specified branch if available (default: {ContentDownloader.DEFAULT_BRANCH}).");
             Console.WriteLine("  -betapassword <pass>     - branch password if applicable.");
             Console.WriteLine("  -all-platforms           - downloads all platform-specific depots when -app is used.");
+            Console.WriteLine("  -all-archs               - download all architecture-specific depots when -app is used.");
             Console.WriteLine("  -os <os>                 - the operating system for which to download the game (windows, macos or linux, default: OS the program is currently running on)");
             Console.WriteLine("  -osarch <arch>           - the architecture for which to download the game (32 or 64, default: the host's architecture)");
             Console.WriteLine("  -all-languages           - download all language-specific depots when -app is used.");
@@ -407,12 +417,14 @@ namespace DepotDownloader
             Console.WriteLine();
             Console.WriteLine("  -username <user>         - the username of the account to login to for restricted content.");
             Console.WriteLine("  -password <pass>         - the password of the account to login to for restricted content.");
-            Console.WriteLine("  -remember-password       - if set, remember the password for subsequent logins of this user. (Use -username <username> -remember-password as login credentials)");
+            Console.WriteLine("  -remember-password       - if set, remember the password for subsequent logins of this user.");
+            Console.WriteLine("                             use -username <username> -remember-password as login credentials.");
             Console.WriteLine();
             Console.WriteLine("  -dir <installdir>        - the directory in which to place downloaded files.");
-            Console.WriteLine("  -filelist <file.txt>     - a list of files to download (from the manifest). Prefix file path with 'regex:' if you want to match with regex.");
-            Console.WriteLine("  -validate                - Include checksum verification of files already downloaded");
+            Console.WriteLine("  -filelist <file.txt>     - the name of a local file that contains a list of files to download (from the manifest).");
+            Console.WriteLine("                             prefix file path with `regex:` if you want to match with regex. each file path should be on their own line.");
             Console.WriteLine();
+            Console.WriteLine("  -validate                - include checksum verification of files already downloaded");
             Console.WriteLine("  -manifest-only           - downloads a human readable manifest for any depots that would be downloaded.");
             Console.WriteLine("  -cellid <#>              - the overridden CellID of the content server to download from.");
             Console.WriteLine("  -max-servers <#>         - maximum number of content servers to use. (default: 20).");
