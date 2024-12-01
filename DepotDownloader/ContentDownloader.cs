@@ -1154,7 +1154,7 @@ namespace DepotDownloader
                     lock (depotDownloadCounter)
                     {
                         depotDownloadCounter.sizeDownloaded += file.TotalSize;
-                        Console.WriteLine("{[Info]|[Validated]|{0:#00.00}%", (depotDownloadCounter.sizeDownloaded / (float)depotDownloadCounter.completeDownloadSize) * 100.0f);
+                        Console.WriteLine("[Info]|[Validated]|{0:#00.00}%", (depotDownloadCounter.sizeDownloaded / (float)depotDownloadCounter.completeDownloadSize) * 100.0f);
                     }
 
                     lock (downloadCounter)
